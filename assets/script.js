@@ -18,7 +18,7 @@ var forecast = function(city) {
       var forecastArr = [];
   // storing weather data from api
   for (var i = 0; i < 5; i++) {
-      date = new Date();
+      date = new Date().toLocaleDateString('en-US');
       var forecastObj = {
           date: date,
           weather: data.list[i].icon,
