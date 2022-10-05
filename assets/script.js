@@ -21,7 +21,7 @@ var forecast = function(city) {
       date = new Date().toLocaleDateString('en-US');
       var forecastObj = {
           date: date,
-          weather: data.list[i].icon,
+          weather: data.list[i].weather[0].icon,
           temp: Math.round(data.list[i].main.temp),
           wind: data.list[i].wind.speed,
           humidity: data.list[i].main.humidity
