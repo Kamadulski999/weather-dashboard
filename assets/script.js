@@ -20,7 +20,7 @@ const checkList = function (city, cityArray) {
 }
 
 // click handler for previous searched cities list
-$(".history").on("click", function() {
+$(".history").on("click", "li", function() {
   console.log($(this).text());
 })
 
