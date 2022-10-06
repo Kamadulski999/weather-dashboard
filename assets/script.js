@@ -11,7 +11,21 @@ var localWeather = function(city) {
   .then(function(response){
     response.json().then(function(data) { 
     console.log(data)
-});
+
+    date = new Date().toLocaleDateString('en-US');
+    var localCard = $("<div>").addClass("card bg-primary text-white");
+    var localCardBody = $("<div>").addClass("card");
+    var localTitle = $("<h3>").addClass("card-title").text(data.name + date );
+    var localImg = $("<img>").attr("src", data.weather[0].icon);
+    var localWind = $("<p>").addClass("card-text").text("Wind Speed: " + data.wind.speed + " MPH");
+    var localHumid = $("<p>").addClass("card-text").text("Humidity: " + data.main.humidity + " %");
+    var localTemp = $("<p>").addClass("card-text").text("Temperature: " + data.main.temp + " F");
+
+    localTitle.append(localImg)
+    localCardBody.append(localTitle, localTemp, localHumid, localWind)
+    localCard.append(localCardBody)
+    $("#today").append(localCardBody);
+  });  
 });
 }
 
