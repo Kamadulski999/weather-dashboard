@@ -21,8 +21,6 @@ var localWeather = function(city) {
     var localHumid = $("<p>").addClass("card-text").text("Humidity: " + data.main.humidity + " %");
     var localTemp = $("<p>").addClass("card-text").text("Temperature: " + Math.round(data.main.temp) + " F");
 
-      console.log(data.weather[0].icon)
-
     localTitle.append(localImg)
     localCardBody.append(localTitle, localTemp, localHumid, localWind)
     localCard.append(localCardBody)
@@ -62,41 +60,19 @@ var forecast = function(city) {
     var cardTitle = $("<h3>").addClass("card-title").text(forecastArr[j].date)
     var cardImage = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + forecastArr[j].weather + "@2x.png")
     var cardTemp = $("<p>").addClass("card-text").text("Temperature: " + forecastArr[j].temp + " °F");
-    var cardHumid = $("<p>").addClass("card-text").text("Humidity: " + forecastArr[j].humidity + "%");
-
+    var cardHumid = $("<p>").addClass("card-text").text("Humidity: " + forecastArr[j].humidity + "%");            
    
-    
-        
-    // console.log(cardTitle);    
-    // console.log(cardImage);
-    // console.log(cardTemp);
-    // console.log(cardHumid);
-
     cardBody.append(cardTitle, cardImage, cardTemp, cardHumid);
-    //console.log(cardBody);
-
-    card.append(cardBody);
-    // console.log(card);
-
-    cardColumn.append(card);
-    //console.log(cardColumn);
-
-    $("#forecast").append(cardColumn)
-
-    
-
-   
-
-  }
- 
-
-  
+    card.append(cardBody); 
+    cardColumn.append(card); 
+    $("#forecast").append(cardColumn)  
+     }   
    });
-});
+  });
 }
 
-  forecast(city);
-  localWeather(city);
+forecast(city);
+localWeather(city);
 
   
  
