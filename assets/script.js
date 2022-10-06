@@ -39,7 +39,7 @@ var localWeather = function(city) {
     localTitle.append(localImg)
     localCardBody.append(localTitle, localTemp, localHumid, localWind)
     localCard.append(localCardBody)   
-    $("#today").append(localCardBody);
+    $("#today").empty().append(localCardBody);
   });  
     
 });
@@ -67,6 +67,7 @@ var forecast = function(city) {
       };
        forecastArr.push(forecastObj);
   };
+  $("#forecast").empty();
   for (var j = 0; j < forecastArr.length; j++) {
     var cardColumn = $("<div>").addClass("col-md-2.5"); 
     var card = $("<div>").addClass("card bg-primary text-white");
@@ -78,14 +79,15 @@ var forecast = function(city) {
    
     cardBody.append(cardTitle, cardImage, cardTemp, cardHumid);
     card.append(cardBody); 
-    cardColumn.append(card); 
+    cardColumn.append(card);     
     $("#forecast").append(cardColumn)  
      }   
    });
   });
 }
 
-
+localWeather("London");
+forecast("London");
 
   
  
