@@ -1,6 +1,7 @@
 var APIKey = "2d1eeb2d03c02cc552ff916201158e58"
 var cityArray = []
 
+
 // this function searches an array to see if a string exists
 const searchStringInArray = function (str, strArray) {
   for (var j=0; j<strArray.length; j++) {
@@ -9,30 +10,34 @@ const searchStringInArray = function (str, strArray) {
   return -1;  
 }
 
-// checks cityArray to see is search term already exists in our list
-const checkList = function (city, cityArray) {
-  searchStringInArray(city,cityArray)
- if (!checkList) {
-  console.log("added to array")
+// checks cityArray to see is search term already exists in our list (https://stackoverflow.com/questions/5424488/how-to-search-for-a-string-inside-an-array-of-strings)
+const checkList = function (city, cityArray) { 
+  const check = searchStringInArray(city,cityArray)
+  console.log(check)
+ if (check === -1) {
+  cityArray.push(city)
+  console.log(cityArray)
    } else {
-    console.log("already in list")
+  console.log("already in array")    
   }
 }
 
 // click handler for previous searched cities list
 $(".history").on("click", "li", function() {
-  console.log($(this).text());
+  var listCity = ($(this).text());  
+
 })
 
 // click event handler for submit button
 $("#search-button").on("click", function () {  
   var city = $("#search-value").val();   
   $("#search-value").val("");
+  checkList(city, cityArray);
   localWeather(city);
   forecast(city);
 });
 
-// event handler for enter button in input field
+// event handler for enter button in input field 
 $("#search-value").keyup(function(event) {
   if (event.keyCode === 13) {
       $("#search-button").click();
