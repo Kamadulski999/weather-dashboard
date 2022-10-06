@@ -26,7 +26,8 @@ const checkList = function (city, cityArray) {
 // click handler for previous searched cities list
 $(".history").on("click", "li", function() {
   var listCity = ($(this).text());  
-  console.log(listCity)
+  localWeather(listCity);
+  forecast(listCity);
 
 })
 
