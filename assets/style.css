@@ -3,3 +3,8 @@ h1 {
     margin-bottom: 0%;
     background-color: blue;
 }
+
+
+var day = date.getDate();
+console.log(day)  
+date.setUTCDate(day + i).toLocaleString("en-US")  

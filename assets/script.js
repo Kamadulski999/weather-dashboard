@@ -17,9 +17,13 @@ var forecast = function(city) {
       var forecastArr = [];
   // storing weather data from api
   for (var i = 0; i < 5; i++) {
-      date = new Date().toLocaleDateString('en-US');
+      var date = new Date()
+      var day = new Date().getDay()
+      console.log(day)  
+      date.setUTCDate(day + i)
+      newDate = new Date(date).toLocaleDateString('en-us') 
       var forecastObj = {
-          date: date,
+          date: newDate,
           weather: data.list[i].weather[0].icon,
           temp: Math.round(data.list[i].main.temp),
           wind: Math.round(data.list[i].wind.speed),
