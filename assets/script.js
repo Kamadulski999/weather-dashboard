@@ -5,8 +5,15 @@ var city = "London"
 
 // https://api.openweathermap.org/data/2.5/weather?q={city name},{country code}&units=imeperial&appid=2d1eeb2d03c02cc552ff916201158e58
   
+var localWeather = function(city) {
 
-
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&units=imperial`)
+  .then(function(response){
+    response.json().then(function(data) { 
+    console.log(data)
+});
+});
+}
 
 
 var forecast = function(city) {
@@ -18,12 +25,11 @@ var forecast = function(city) {
   // storing weather data from api
   for (var i = 0; i < 5; i++) {
       var date = new Date()
-      var day = new Date().getDay()
-      console.log(day)  
+      var day = new Date().getDay()      
       date.setUTCDate(day + i)
-      newDate = new Date(date).toLocaleDateString('en-us') 
+      formatDate = new Date(date).toLocaleDateString('en-us') 
       var forecastObj = {
-          date: newDate,
+          date: formatDate,
           weather: data.list[i].weather[0].icon,
           temp: Math.round(data.list[i].main.temp),
           wind: Math.round(data.list[i].wind.speed),
@@ -73,7 +79,8 @@ var forecast = function(city) {
 });
 }
 
-  forecast(city)
+  forecast(city);
+  localWeather(city);
 
   
  
