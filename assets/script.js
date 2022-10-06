@@ -16,10 +16,12 @@ var localWeather = function(city) {
     var localCard = $("<div>").addClass("card bg-primary text-white");
     var localCardBody = $("<div>").addClass("card");
     var localTitle = $("<h3>").addClass("card-title").text(data.name + date );
-    var localImg = $("<img>").attr("src", data.weather[0].icon);
-    var localWind = $("<p>").addClass("card-text").text("Wind Speed: " + data.wind.speed + " MPH");
+    var localImg = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
+    var localWind = $("<p>").addClass("card-text").text("Wind Speed: " + Math.round(data.wind.speed) + " MPH");
     var localHumid = $("<p>").addClass("card-text").text("Humidity: " + data.main.humidity + " %");
-    var localTemp = $("<p>").addClass("card-text").text("Temperature: " + data.main.temp + " F");
+    var localTemp = $("<p>").addClass("card-text").text("Temperature: " + Math.round(data.main.temp) + " F");
+
+      console.log(data.weather[0].icon)
 
     localTitle.append(localImg)
     localCardBody.append(localTitle, localTemp, localHumid, localWind)
@@ -58,11 +60,11 @@ var forecast = function(city) {
     var card = $("<div>").addClass("card bg-primary text-white");
     var cardBody = $("<div>").addClass("card-body p-2");    
     var cardTitle = $("<h3>").addClass("card-title").text(forecastArr[j].date)
-    var cardImage = $("<img>").attr("src", `${forecastArr[j].weather}`)
+    var cardImage = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + forecastArr[j].weather + "@2x.png")
     var cardTemp = $("<p>").addClass("card-text").text("Temperature: " + forecastArr[j].temp + " °F");
     var cardHumid = $("<p>").addClass("card-text").text("Humidity: " + forecastArr[j].humidity + "%");
 
-    
+   
     
         
     // console.log(cardTitle);    
