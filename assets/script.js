@@ -13,9 +13,9 @@ var localWeather = function(city) {
     console.log(data)
 
     date = new Date().toLocaleDateString('en-US');
-    var localCard = $("<div>").addClass("card bg-primary text-white");
-    var localCardBody = $("<div>").addClass("card");
-    var localTitle = $("<h3>").addClass("card-title").text(data.name + date );
+    var localCard = $("<div>").addClass("card");
+    var localCardBody = $("<div>").addClass("card bg-primary text-white");
+    var localTitle = $("<h3>").addClass("card-title").text(data.name + " " + date);
     var localImg = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
     var localWind = $("<p>").addClass("card-text").text("Wind Speed: " + Math.round(data.wind.speed) + " MPH");
     var localHumid = $("<p>").addClass("card-text").text("Humidity: " + data.main.humidity + " %");
