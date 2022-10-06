@@ -1,6 +1,28 @@
 var APIKey = "2d1eeb2d03c02cc552ff916201158e58"
 var cityArray = []
 
+// this function searches an array to see if a string exists
+const searchStringInArray = function (str, strArray) {
+  for (var j=0; j<strArray.length; j++) {
+      if (strArray[j].match(str)) return j;
+  }
+  return -1;  
+}
+
+// checks cityArray to see is search term already exists in our list
+const checkList = function (city, cityArray) {
+  searchStringInArray(city,cityArray)
+ if (!checkList) {
+  console.log("added to array")
+   } else {
+    console.log("already in list")
+  }
+}
+
+// click handler for previous searched cities list
+$(".history").on("click", function() {
+  console.log($(this).text());
+})
 
 // click event handler for submit button
 $("#search-button").on("click", function () {  
