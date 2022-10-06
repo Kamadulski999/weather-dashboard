@@ -1,4 +1,5 @@
 var APIKey = "2d1eeb2d03c02cc552ff916201158e58"
+var cityArray = []
 
 
 // click event handler for submit button
@@ -16,17 +17,20 @@ $("#search-value").keyup(function(event) {
   }
 });
 
+
+// add city to list of previously searched
 var addCity = function(city) {
-  cityArray = []  
+  var cityList = $("<li>").addClass("list-group-item").text(city);
+  $(".history").append(cityList)    
 }
+
+
 // local weather report
 var localWeather = function(city) {
 
   fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&units=imperial`)
   .then(function(response){
-    response.json().then(function(data) { 
-    console.log(data)
-
+    response.json().then(function(data) {  
     date = new Date().toLocaleDateString('en-US');
     var localCard = $("<div>").addClass("card");
     var localCardBody = $("<div>").addClass("card bg-primary text-white");
@@ -40,6 +44,8 @@ var localWeather = function(city) {
     localCardBody.append(localTitle, localTemp, localHumid, localWind)
     localCard.append(localCardBody)   
     $("#today").empty().append(localCardBody);
+
+    addCity(data.name)
   });  
     
 });
