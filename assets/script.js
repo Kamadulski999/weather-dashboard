@@ -14,25 +14,26 @@ const searchStringInArray = function (str, strArray) {
 const checkList = function (city, cityArray) { 
   const check = searchStringInArray(city,cityArray)
   console.log(check)
+
  if (check === -1) {
   cityArray.push(city)
-  console.log(cityArray)
-   } else {
-  console.log("already in array")    
+  addCity(city)
+   } 
+     
   }
-}
+
 
 // click handler for previous searched cities list
 $(".history").on("click", "li", function() {
   var listCity = ($(this).text());  
+  console.log(listCity)
 
 })
 
 // click event handler for submit button
 $("#search-button").on("click", function () {  
   var city = $("#search-value").val();   
-  $("#search-value").val("");
-  checkList(city, cityArray);
+  $("#search-value").val(""); 
   localWeather(city);
   forecast(city);
 });
@@ -72,7 +73,7 @@ var localWeather = function(city) {
     localCard.append(localCardBody)   
     $("#today").empty().append(localCardBody);
 
-    addCity(data.name)
+    checkList(data.name,cityArray)
   });  
     
 });
