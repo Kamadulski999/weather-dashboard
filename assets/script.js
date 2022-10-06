@@ -1,10 +1,25 @@
 var APIKey = "2d1eeb2d03c02cc552ff916201158e58"
-var city = "London"
 
 
+// click event handler for submit button
+$("#search-button").on("click", function () {  
+  var city = $("#search-value").val();   
+  $("#search-value").val("");
+  localWeather(city);
+  forecast(city);
+});
 
-// https://api.openweathermap.org/data/2.5/weather?q={city name},{country code}&units=imeperial&appid=2d1eeb2d03c02cc552ff916201158e58
-  
+// event handler for enter button in input field
+$("#search-value").keyup(function(event) {
+  if (event.keyCode === 13) {
+      $("#search-button").click();
+  }
+});
+
+var addCity = function(city) {
+  cityArray = []  
+}
+// local weather report
 var localWeather = function(city) {
 
   fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&units=imperial`)
@@ -23,13 +38,14 @@ var localWeather = function(city) {
 
     localTitle.append(localImg)
     localCardBody.append(localTitle, localTemp, localHumid, localWind)
-    localCard.append(localCardBody)
+    localCard.append(localCardBody)   
     $("#today").append(localCardBody);
   });  
+    
 });
 }
 
-
+// five day forecast
 var forecast = function(city) {
 
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${APIKey}&units=imperial`)
@@ -49,10 +65,8 @@ var forecast = function(city) {
           wind: Math.round(data.list[i].wind.speed),
           humidity: data.list[i].main.humidity
       };
-  // console.log(forecastObj);
-      forecastArr.push(forecastObj);
+       forecastArr.push(forecastObj);
   };
-  // console.log(forecastArr);
   for (var j = 0; j < forecastArr.length; j++) {
     var cardColumn = $("<div>").addClass("col-md-2.5"); 
     var card = $("<div>").addClass("card bg-primary text-white");
@@ -71,8 +85,7 @@ var forecast = function(city) {
   });
 }
 
-forecast(city);
-localWeather(city);
+
 
   
  
