@@ -1,15 +1,18 @@
 var APIKey = "2d1eeb2d03c02cc552ff916201158e58"
 var cityArray = []
-var cityStore = JSON.parse(localStorage.getItem("cities")) || []
+var cityStore = (localStorage.getItem("cities")) || []
 
-console.log(typeof(cityStore))
+console.log(JSON.parse(cityStore))
+
+
 
 // gets localeStorage and makes API call to first city in list
 var loadPage = function() {
   getStore();
+  const parseArr = [...cityStore]
+  console.log(parseArr)
   localWeather(cityStore[0]);
   forecast(cityStore[0]);
-
   for (i=0; i < cityStore.length; i++) {
     addCity(cityStore[i])
   };
@@ -20,7 +23,8 @@ var setStore = function(city, cityStore) {
   console.log(cityStore)
   cityStore.push()  
   // console.log(cityStore)
-  localStorage.setItem("cities", JSON.stringify(cityStore))
+  const storeString = JSON.stringify(cityStore)
+  localStorage.setItem("cities", storeString)
 }
 
 var getStore = function() {
@@ -31,7 +35,7 @@ var getStore = function() {
 
 // this function searches an array to see if a string exists
 const searchStringInArray = function (str, strArray) {
-  for (var j=0; j<strArray.length; j++) {
+  for (var j=0; j < strArray.length; j++) {
       if (strArray[j].match(str)) return j;
   }
   return -1;  
@@ -39,7 +43,7 @@ const searchStringInArray = function (str, strArray) {
 
 // checks cityArray to see is search term already exists in our list (https://stackoverflow.com/questions/5424488/how-to-search-for-a-string-inside-an-array-of-strings)
 const checkList = function (city, cityArray) { 
-  const check = searchStringInArray(city,cityArray)
+  const check = searchStringInArray(city, cityStore)
 
   if (check === -1) {
     cityArray.push(city)
@@ -52,6 +56,7 @@ const checkList = function (city, cityArray) {
 
 // click handler for previous searched cities list
 $(".history").on("click", "li", function() {
+  event.preventDefault()
   var listCity = ($(this).text());  
   localWeather(listCity);
   forecast(listCity);
@@ -59,7 +64,8 @@ $(".history").on("click", "li", function() {
 })
 
 // click event handler for submit button
-$("#search-button").on("click", function () {  
+$("#search-button").on("click", function () { 
+  event.preventDefault() 
   var city = $("#search-value").val();   
   $("#search-value").val(""); 
   localWeather(city);
@@ -68,6 +74,7 @@ $("#search-button").on("click", function () {
 
 // event handler for enter button in input field 
 $("#search-value").keyup(function(event) {
+  event.preventDefault()
   if (event.keyCode === 13) {
       $("#search-button").click();
   }
@@ -91,7 +98,7 @@ var localWeather = function(city) {
     var localCard = $("<div>").addClass("card");
     var localCardBody = $("<div>").addClass("card bg-primary text-white");
     var localTitle = $("<h3>").addClass("card-title").text(data.name + " " + date);
-    var localImg = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
+    var localImg = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
     var localWind = $("<p>").addClass("card-text").text("Wind Speed: " + Math.round(data.wind.speed) + " MPH");
     var localHumid = $("<p>").addClass("card-text").text("Humidity: " + data.main.humidity + " %");
     var localTemp = $("<p>").addClass("card-text").text("Temperature: " + Math.round(data.main.temp) + " F");
@@ -136,7 +143,7 @@ var forecast = function(city) {
     var card = $("<div>").addClass("card bg-primary text-white");
     var cardBody = $("<div>").addClass("card-body p-2");    
     var cardTitle = $("<h3>").addClass("card-title").text(forecastArr[j].date)
-    var cardImage = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + forecastArr[j].weather + "@2x.png")
+    var cardImage = $("<img>").attr("src", "s//openweathermap.org/img/wn/" + forecastArr[j].weather + "@2x.png")
     var cardTemp = $("<p>").addClass("card-text").text("Temperature: " + forecastArr[j].temp + " °F");
     var cardHumid = $("<p>").addClass("card-text").text("Humidity: " + forecastArr[j].humidity + "%");            
    
