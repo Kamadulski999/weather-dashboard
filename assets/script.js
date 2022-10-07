@@ -9,6 +9,10 @@ var loadPage = function() {
   getStore();
   localWeather(cityStore[0]);
   forecast(cityStore[0]);
+
+  for (i=0; i < cityStore.length; i++) {
+    addCity(cityStore[i])
+  };
   
 }
 
