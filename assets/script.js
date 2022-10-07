@@ -2,10 +2,6 @@ var APIKey = "2d1eeb2d03c02cc552ff916201158e58"
 var cityArray = []
 var cityStore = (localStorage.getItem("cities")) || []
 
-console.log(JSON.parse(cityStore))
-
-
-
 // gets localeStorage and makes API call to first city in list
 var loadPage = function() {
   getStore();
