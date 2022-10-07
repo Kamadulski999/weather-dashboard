@@ -2,24 +2,26 @@ var APIKey = "2d1eeb2d03c02cc552ff916201158e58"
 var cityArray = []
 var cityStore = JSON.parse(localStorage.getItem("cities")) || []
 
-console.log(cityStore)
+console.log(typeof(cityStore))
 
 // gets localeStorage and makes API call to first city in list
 var loadPage = function() {
   getStore();
-  console.log("This is form loadPage function  " + cityStore)
+  localWeather(cityStore[0]);
+  forecast(cityStore[0]);
+  
 }
 
 var setStore = function(city, cityStore) {
   console.log(cityStore)
-  cityStore.push(city)  
+  cityStore.push()  
   // console.log(cityStore)
   localStorage.setItem("cities", JSON.stringify(cityStore))
 }
 
 var getStore = function() {
-  var cityStore = localStorage.getItem("cities")
-  return cityStore
+  cityStore = JSON.parse(localStorage.getItem("cities"))
+  return (cityStore)
 }
 
 
@@ -38,8 +40,7 @@ const checkList = function (city, cityArray) {
   if (check === -1) {
     cityArray.push(city)
     addCity(city)
-    setStore(city, cityStore)
-    console.log(city)
+    setStore(city, cityStore)    
     } 
      
   }
@@ -144,7 +145,9 @@ var forecast = function(city) {
   });
 }
 
-
+window.onload = (event) => {
+  loadPage();
+};
 
   
  
