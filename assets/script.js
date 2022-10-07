@@ -1,17 +1,25 @@
 var APIKey = "2d1eeb2d03c02cc552ff916201158e58"
 var cityArray = []
-var cityStore = []
+var cityStore = JSON.parse(localStorage.getItem("cities")) || []
 
+console.log(cityStore)
 
-var setStore = function(city) {
-  cityStore.push(city)
+// gets localeStorage and makes API call to first city in list
+var loadPage = function() {
+  getStore();
+  console.log("This is form loadPage function  " + cityStore)
+}
+
+var setStore = function(city, cityStore) {
+  console.log(cityStore)
+  cityStore.push(city)  
   // console.log(cityStore)
   localStorage.setItem("cities", JSON.stringify(cityStore))
 }
 
 var getStore = function() {
   var cityStore = localStorage.getItem("cities")
-  console.log(cityStore)
+  return cityStore
 }
 
 
@@ -30,7 +38,8 @@ const checkList = function (city, cityArray) {
   if (check === -1) {
     cityArray.push(city)
     addCity(city)
-    setStore(city)
+    setStore(city, cityStore)
+    console.log(city)
     } 
      
   }
@@ -87,7 +96,7 @@ var localWeather = function(city) {
     localCard.append(localCardBody)   
     $("#today").empty().append(localCardBody);
 
-    checkList(data.name,cityArray)
+    checkList(data.name,cityStore)
    
   });  
     
@@ -135,8 +144,7 @@ var forecast = function(city) {
   });
 }
 
-localWeather("London");
-forecast("London");
+
 
   
  
