@@ -1,5 +1,18 @@
 var APIKey = "2d1eeb2d03c02cc552ff916201158e58"
 var cityArray = []
+var cityStore = []
+
+
+var setStore = function(city) {
+  cityStore.push(city)
+  // console.log(cityStore)
+  localStorage.setItem("cities", JSON.stringify(cityStore))
+}
+
+var getStore = function() {
+  var cityStore = localStorage.getItem("cities")
+  console.log(cityStore)
+}
 
 
 // this function searches an array to see if a string exists
@@ -13,12 +26,12 @@ const searchStringInArray = function (str, strArray) {
 // checks cityArray to see is search term already exists in our list (https://stackoverflow.com/questions/5424488/how-to-search-for-a-string-inside-an-array-of-strings)
 const checkList = function (city, cityArray) { 
   const check = searchStringInArray(city,cityArray)
-  console.log(check)
 
- if (check === -1) {
-  cityArray.push(city)
-  addCity(city)
-   } 
+  if (check === -1) {
+    cityArray.push(city)
+    addCity(city)
+    setStore(city)
+    } 
      
   }
 
@@ -28,7 +41,7 @@ $(".history").on("click", "li", function() {
   var listCity = ($(this).text());  
   localWeather(listCity);
   forecast(listCity);
-
+  getStore();
 })
 
 // click event handler for submit button
@@ -59,7 +72,7 @@ var localWeather = function(city) {
 
   fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&units=imperial`)
   .then(function(response){
-    response.json().then(function(data) {  
+    response.json().then(function(data) {     
     date = new Date().toLocaleDateString('en-US');
     var localCard = $("<div>").addClass("card");
     var localCardBody = $("<div>").addClass("card bg-primary text-white");
@@ -75,6 +88,7 @@ var localWeather = function(city) {
     $("#today").empty().append(localCardBody);
 
     checkList(data.name,cityArray)
+   
   });  
     
 });
