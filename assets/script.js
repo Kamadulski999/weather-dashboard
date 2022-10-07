@@ -19,8 +19,8 @@ var setStore = function(city, cityStore) {
   console.log(cityStore)
   cityStore.push()  
   // console.log(cityStore)
-  const storeString = JSON.stringify(cityStore)
-  localStorage.setItem("cities", storeString)
+  
+  localStorage.setItem("cities", cityStore)
 }
 
 var getStore = function() {
